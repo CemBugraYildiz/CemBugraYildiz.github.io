@@ -1,0 +1,572 @@
+<title>Cem Buğra Yıldız</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+
+<style>
+/* Layout: a plan-view document — left-aligned measure over a blockout grid,
+   mono labels marking each section, shipped titles as a filterable level set. */
+:root{
+  --bg:#ECEEF1;
+  --surface:#FFFFFF;
+  --surface-2:#F5F7F9;
+  --fg:#14171C;
+  --muted:#5A6270;
+  --line:#D3D8DF;
+  --accent:#E8481C;
+  --accent-soft:rgba(232,72,28,.10);
+
+  --font-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Spline Sans','Helvetica Neue',Arial,sans-serif;
+  --font-mono:'Spline Sans Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --wrap:1060px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1115;
+    --surface:#161A20;
+    --surface-2:#1B2027;
+    --fg:#E8EBEF;
+    --muted:#98A2B0;
+    --line:#272E38;
+    --accent:#FF6A3D;
+    --accent-soft:rgba(255,106,61,.14);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1115;
+  --surface:#161A20;
+  --surface-2:#1B2027;
+  --fg:#E8EBEF;
+  --muted:#98A2B0;
+  --line:#272E38;
+  --accent:#FF6A3D;
+  --accent-soft:rgba(255,106,61,.14);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+a{color:inherit}
+
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding-inline:20px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;gap:20px;min-height:54px;flex-wrap:wrap}
+.nav-mark{font-family:var(--font-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg);font-weight:500;white-space:nowrap}
+.nav-mark b{color:var(--accent);font-weight:500}
+.nav-links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;
+  color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent;
+}
+.nav-links a:hover{color:var(--fg);border-bottom-color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:46px 46px;
+  opacity:.55;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 78%);
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 78%);
+}
+.hero-in{position:relative;padding-block:56px 44px}
+.avail{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  padding:6px 12px;margin-bottom:26px;
+}
+.avail .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex:none}
+h1{
+  font-size:clamp(2.6rem,8.4vw,4.75rem);
+  font-weight:800;letter-spacing:-.025em;margin-bottom:14px;
+}
+.role{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(1.05rem,3.1vw,1.45rem);letter-spacing:-.01em;
+  color:var(--accent);margin-bottom:20px;
+}
+.lede{max-width:62ch;font-size:clamp(1rem,2.3vw,1.115rem);color:var(--muted);margin-bottom:30px}
+.lede strong{color:var(--fg);font-weight:500}
+
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.02em;
+  padding:10px 15px;border:1px solid var(--line);background:var(--surface);
+  color:var(--fg);text-decoration:none;cursor:pointer;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent);color:#fff;filter:brightness(1.08)}
+.btn svg{width:14px;height:14px;flex:none}
+
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  border-top:1px solid var(--line);
+}
+.stat{padding:18px 18px 18px 0;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:1.9rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;display:block}
+.stat .l{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- sections ---------- */
+section{padding-block:58px;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;flex-wrap:wrap}
+.sec-idx{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.sec-head h2{font-size:clamp(1.5rem,4.2vw,2.1rem);font-weight:700;letter-spacing:-.022em}
+.sec-note{font-size:14.5px;color:var(--muted);max-width:60ch;margin-top:-16px;margin-bottom:26px}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.02em;
+  padding:7px 13px;border:1px solid var(--line);background:transparent;
+  color:var(--muted);cursor:pointer;transition:.15s;
+}
+.chip:hover{color:var(--fg);border-color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+
+/* ---------- title cards ---------- */
+.titles{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:11px;min-width:0}
+.card.is-hidden{display:none}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card h3{font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
+.card .genre{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-top:5px}
+.plat{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:3px 7px;white-space:nowrap;flex:none}
+.card p{font-size:14.6px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:3px 7px}
+
+/* ---------- experience ---------- */
+.job{border-left:2px solid var(--line);padding-left:22px;padding-bottom:34px;position:relative}
+.job:last-child{padding-bottom:0}
+.job::before{content:"";position:absolute;left:-5px;top:7px;width:8px;height:8px;background:var(--accent);border-radius:50%}
+.job-co{font-family:var(--font-display);font-weight:700;font-size:1.22rem;letter-spacing:-.015em}
+.job-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--muted);margin-top:4px;margin-bottom:14px}
+.stint{margin-bottom:18px}
+.stint:last-child{margin-bottom:0}
+.stint-role{font-family:var(--font-display);font-weight:600;font-size:1rem}
+.stint-when{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:var(--muted);margin-bottom:8px}
+.bullets li{position:relative;padding-left:16px;font-size:14.8px;color:var(--muted);margin-bottom:5px;max-width:68ch}
+.bullets li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--accent)}
+
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.skill{background:var(--surface);padding:18px;min-width:0}
+.skill h4{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:9px}
+.skill p{font-size:14.6px;color:var(--muted)}
+
+/* ---------- education ---------- */
+.edu{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.edu-row{background:var(--surface);padding:20px;display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:start}
+.edu-row h3{font-size:1.08rem;font-weight:700;letter-spacing:-.012em}
+.edu-deg{font-size:14.6px;color:var(--muted);margin-top:4px}
+.edu-when{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:var(--muted);text-align:right;white-space:nowrap}
+.edu-more{grid-column:1/-1;font-size:14.4px;color:var(--muted);border-top:1px solid var(--line);padding-top:11px;margin-top:3px;max-width:72ch}
+
+/* ---------- langs / extra ---------- */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+.lang-row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.lang-row:last-child{border-bottom:0}
+.lang-row span:last-child{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);text-align:right}
+
+/* ---------- contact ---------- */
+.contact{border-bottom:0}
+.contact-box{border:1px solid var(--line);background:var(--surface);padding:clamp(22px,5vw,38px)}
+.contact-box h2{font-size:clamp(1.5rem,4.4vw,2.2rem);font-weight:700;letter-spacing:-.022em;margin-bottom:12px}
+.contact-box p{color:var(--muted);max-width:56ch;margin-bottom:24px}
+.cline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
+.cval{font-family:var(--font-mono);font-size:15px;word-break:break-all;min-width:0}
+.copy{
+  font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 10px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;flex:none;
+}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+.copy.ok{border-color:var(--accent);color:var(--accent)}
+
+footer{padding-block:26px 40px}
+.foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){
+  .stat{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
+  .stat:last-child{border-bottom:0}
+  .edu-row{grid-template-columns:1fr}
+  .edu-when{text-align:left}
+}
+</style>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <div class="nav-mark">CEM BUĞRA YILDIZ <b>/</b> LEVEL DESIGN</div>
+    <div class="nav-links">
+      <a href="#titles">Shipped titles</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="avail"><span class="dot"></span> Open to internships · Feb – Jun 2027</div>
+
+    <h1>Cem Buğra Yıldız</h1>
+    <div class="role">Level Designer &nbsp;/&nbsp; Game Developer &nbsp;/&nbsp; 3D Artist</div>
+
+    <p class="lede">I design levels and the systems that pace them — layout and blockout, enemy placement, difficulty curves and upgrade economies. <strong>Three years at Funrado</strong>, a mobile studio, across seven released titles. Now studying Game Development at <strong>Howest DAE</strong> in Kortrijk, working in C++ and Unreal Engine 5.</p>
+
+    <div class="links">
+      <a class="btn btn-primary" href="#contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        Get in touch
+      </a>
+      <a class="btn" href="https://cembugra.itch.io" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5h14v14H5z"/><path d="m10 9 5 3-5 3z"/></svg>
+        itch.io
+      </a>
+      <a class="btn" href="https://github.com/CemBugraYildiz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19.9 5a4.9 4.9 0 0 0-.1-3.6s-1.1-.3-3.7 1.4a12.7 12.7 0 0 0-6.6 0C6.9 1.1 5.8 1.4 5.8 1.4A4.9 4.9 0 0 0 5.7 5a5.2 5.2 0 0 0-1.4 3.7c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-.9 2.6V22"/></svg>
+        GitHub
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/cem-bu%C4%9Fra-y%C4%B1ld%C4%B1z-3970851b9/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h3v11H4zM5.5 4.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM10 20V9h3v1.6A3.7 3.7 0 0 1 16.2 9c2.4 0 3.8 1.6 3.8 4.4V20h-3v-6.1c0-1.5-.6-2.4-1.9-2.4-1.1 0-1.8.7-2.1 1.5V20z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">7</span><span class="l">Released titles</span></div>
+      <div class="stat"><span class="n">3+</span><span class="l">Years in studio</span></div>
+      <div class="stat"><span class="n">Unity</span><span class="l">+ Unreal Engine 5</span></div>
+      <div class="stat"><span class="n">4</span><span class="l">Languages spoken</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="titles">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-idx">01</span><h2>Shipped titles</h2></div>
+    <p class="sec-note">Seven mobile titles released at Funrado on Google Play and the App Store, played by thousands of players. Filter by discipline to see the work that matters to you.</p>
+
+    <div class="filters" role="group" aria-label="Filter titles by discipline">
+      <button class="chip" data-filter="all" aria-pressed="true">All titles</button>
+      <button class="chip" data-filter="level" aria-pressed="false">Level design</button>
+      <button class="chip" data-filter="systems" aria-pressed="false">Systems &amp; balance</button>
+      <button class="chip" data-filter="enemy" aria-pressed="false">Enemy &amp; AI</button>
+      <button class="chip" data-filter="art" aria-pressed="false">Art &amp; animation</button>
+    </div>
+
+    <div class="titles" id="grid">
+
+      <article class="card" data-tags="level art">
+        <div class="card-top">
+          <div><h3>Goal Master</h3><div class="genre">Sports / Casual</div></div>
+          <span class="plat">Android · iOS</span>
+        </div>
+        <p>Designed 10+ progressive levels where the player tries to score as a footballer. Built obstacles that make scoring steadily harder, and set camera angles and backgrounds to establish each level's ambience.</p>
+        <div class="tags"><span class="tag">Level design</span><span class="tag">Obstacles</span><span class="tag">Framing</span></div>
+      </article>
+
+      <article class="card" data-tags="level enemy art">
+        <div class="card-top">
+          <div><h3>Color Invasion</h3><div class="genre">Casual / Puzzle</div></div>
+          <span class="plat">Android · iOS</span>
+        </div>
+        <p>Designed 5+ unique levels around painting the ground to clear a stage. Set enemy types and placements to control routing and difficulty, and created the in-level props that keep each layout readable.</p>
+        <div class="tags"><span class="tag">Level design</span><span class="tag">Enemy placement</span><span class="tag">Props</span></div>
+      </article>
+
+      <article class="card" data-tags="level systems enemy art">
+        <div class="card-top">
+          <div><h3>Tower Defense Simulator</h3><div class="genre">Strategy</div></div>
+          <span class="plat">Android · iOS</span>
+        </div>
+        <p>A tower defense with a controllable player on the field. Designed 3+ levels and 3+ tower types, built the environments the player navigates, and created and balanced the enemy waves across a run.</p>
+        <div class="tags"><span class="tag">Level design</span><span class="tag">Tower design</span><span class="tag">Wave balancing</span></div>
+      </article>
+
+      <article class="card" data-tags="systems">
+        <div class="card-top">
+          <div><h3>Deep Dive</h3><div class="genre">Exploration / Merge</div></div>
+          <span class="plat">Android · iOS</span>
+        </div>
+        <p>Designed the player's submarine and its merge-based upgrade mechanics across 5+ tiers. Tuned progression so that growth in power stayed matched to the difficulty of deeper zones.</p>
+        <div class="tags"><span class="tag">Systems design</span><span class="tag">Upgrade economy</span><span class="tag">Progression</span></div>
+      </article>
+
+      <article class="card" data-tags="level systems art">
+        <div class="card-top">
+          <div><h3>Surf &amp; Shoot</h3><div class="genre">Action / Parkour</div></div>
+          <span class="plat">Android</span>
+        </div>
+        <p>Designed hazard-filled parkour levels that combine high-speed movement with combat. Set up animation transitions to keep movement readable, and implemented the weapon acquisition mechanic that escalates player power.</p>
+        <div class="tags"><span class="tag">Level design</span><span class="tag">Animation</span><span class="tag">Weapon mechanic</span></div>
+      </article>
+
+      <article class="card" data-tags="level enemy">
+        <div class="card-top">
+          <div><h3>Castle Escape</h3><div class="genre">Stealth / Hide and Seek</div></div>
+          <span class="plat">Android</span>
+        </div>
+        <p>Designed the castle layout and room-to-room progression gated by collectible keys. Built enemy patrol routes and pursuit behaviour so that tension comes from the layout rather than from jump scares.</p>
+        <div class="tags"><span class="tag">Level design</span><span class="tag">Patrol routes</span><span class="tag">Pacing</span></div>
+      </article>
+
+      <article class="card" data-tags="art">
+        <div class="card-top">
+          <div><h3>Dance Fever</h3><div class="genre">Rhythm / Clicker</div></div>
+          <span class="plat">Android · iOS</span>
+        </div>
+        <p>Arranged dancer choreography to match the game's click-driven rhythm loop, and set the environment ambience and music selection that carry the game feel.</p>
+        <div class="tags"><span class="tag">Choreography</span><span class="tag">Ambience</span><span class="tag">Audio</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-idx">02</span><h2>Experience</h2></div>
+
+    <div class="job">
+      <div class="job-co">Funrado — Mobile Game Studio</div>
+      <div class="job-meta">July 2021 – September 2024 · 3 yrs 3 mos · Ankara, Turkey and Remote</div>
+
+      <div class="stint">
+        <div class="stint-role">Freelance Designer</div>
+        <div class="stint-when">September 2023 – September 2024 · Remote</div>
+        <ul class="bullets">
+          <li>Continued level design and gameplay mechanics work on live titles after relocating to Belgium.</li>
+          <li>Designed new levels, features and progression content for post-launch updates.</li>
+          <li>Iterated on existing levels and mechanics based on team feedback and player behaviour.</li>
+        </ul>
+      </div>
+
+      <div class="stint">
+        <div class="stint-role">3D Artist and Level Designer</div>
+        <div class="stint-when">January 2022 – August 2023 · Full-time</div>
+        <ul class="bullets">
+          <li>Designed and built levels for released titles: layout, enemy placement, prop dressing and difficulty progression.</li>
+          <li>Created 3D environments, props and level art in Blender, optimised for mobile performance.</li>
+          <li>Balanced enemy waves, encounter pacing and difficulty curves across multiple shipped games.</li>
+          <li>Worked alongside programmers and artists to take levels from rough layout to art-ready production.</li>
+        </ul>
+      </div>
+
+      <div class="stint">
+        <div class="stint-role">Game Developer</div>
+        <div class="stint-when">July 2021 – January 2022 · Full-time, Ankara</div>
+        <ul class="bullets">
+          <li>Programmed gameplay mechanics in Unity and C# for mobile titles.</li>
+          <li>Implemented game systems and in-game UI together with the design team.</li>
+          <li>Prototyped mechanics and optimised performance for Android and iOS devices.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-co">Solo Game Developer — Self-employed</div>
+      <div class="job-meta">September 2021 – Present · Personal and game jam projects</div>
+      <ul class="bullets">
+        <li>Develop personal and game jam projects independently in Unity: design, programming, 3D art and release.</li>
+        <li>Build small-scope prototypes under jam time constraints, practising rapid iteration and scope control.</li>
+        <li>Explore C++ and Unreal Engine 5 alongside Howest DAE coursework.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-co">Pixelorc — Web Content Writer</div>
+      <div class="job-meta">December 2023 – June 2025 · Remote</div>
+      <ul class="bullets">
+        <li>Wrote web content and copy covering the games industry and PC gaming.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-co">Engineering Internships</div>
+      <div class="job-meta">Omak Isitma Sistemleri San. Tic. A.S. · Jul – Aug 2022 &nbsp;|&nbsp; Pi Makina · Jul – Aug 2021</div>
+      <ul class="bullets">
+        <li>Industrial engineering internships covering process analysis and problem solving in a production environment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-idx">03</span><h2>Skills</h2></div>
+    <div class="skills">
+      <div class="skill"><h4>Game engines</h4><p>Unity, Unreal Engine 5</p></div>
+      <div class="skill"><h4>Programming</h4><p>C#, C++</p></div>
+      <div class="skill"><h4>Level design</h4><p>Level layout, blockout and iteration, enemy placement, encounter pacing, difficulty balancing, progression systems, props and environment dressing</p></div>
+      <div class="skill"><h4>Game design</h4><p>Game mechanics, prototyping, game design documents, economy and upgrade balancing, UI implementation</p></div>
+      <div class="skill"><h4>Art and tools</h4><p>Blender, Adobe Photoshop, 3D modelling, animation transitions, mobile asset optimisation</p></div>
+      <div class="skill"><h4>Version control</h4><p>Git, GitHub, Perforce (P4V)</p></div>
+      <div class="skill"><h4>Backend and services</h4><p>PlayFab, Microsoft Azure</p></div>
+      <div class="skill"><h4>Workflow</h4><p>Agile, Jira, cross-discipline collaboration, iteration on feedback</p></div>
+      <div class="skill"><h4>Platforms</h4><p>Android, iOS, PC</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-idx">04</span><h2>Education</h2></div>
+    <div class="edu">
+      <div class="edu-row">
+        <div>
+          <h3>Howest University of Applied Sciences — DAE</h3>
+          <div class="edu-deg">BSc Game Development · Kortrijk, Belgium</div>
+        </div>
+        <div class="edu-when">Sep 2023 – Jun 2027<br>expected</div>
+        <div class="edu-more">Coursework: C++ programming, Unreal Engine 5, Unity multiplayer systems (Netcode for GameObjects), game architecture and design patterns, gameplay programming.</div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <h3>Gazi University — Faculty of Engineering</h3>
+          <div class="edu-deg">BSc Industrial Engineering · Ankara, Turkey</div>
+        </div>
+        <div class="edu-when">Sep 2018 – Jul 2023<br>GPA 2.78 / 4.00</div>
+        <div class="edu-more">Focus on systems analysis, optimisation, process design and project management.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-idx">05</span><h2>Languages &amp; beyond</h2></div>
+    <div class="two">
+      <div>
+        <div class="lang-row"><span>Turkish</span><span>Native</span></div>
+        <div class="lang-row"><span>English</span><span>Professional working</span></div>
+        <div class="lang-row"><span>Dutch</span><span>Elementary</span></div>
+        <div class="lang-row"><span>German</span><span>Elementary</span></div>
+      </div>
+      <div>
+        <ul class="bullets">
+          <li>Game jam participant; personal projects published at cembugra.itch.io.</li>
+          <li>Video content creator on YouTube covering game development topics since December 2023.</li>
+          <li>Based in Kortrijk, Belgium; eligible to work on-site in Belgium.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's talk about your levels</h2>
+      <p>I'm looking for a game development internship in Belgium between February and June 2027. Happy to come by the studio, or send over anything you'd like to see first.</p>
+
+      <div class="cline">
+        <span class="cval" id="mail">cem.bugray@gmail.com</span>
+        <button class="copy" data-copy="mail">Copy</button>
+      </div>
+      <div class="cline">
+        <span class="cval" id="tel">+32 484 62 05 90</span>
+        <button class="copy" data-copy="tel">Copy</button>
+      </div>
+
+      <div class="links" style="margin-top:24px;margin-bottom:0">
+        <a class="btn" href="https://www.linkedin.com/in/cem-bu%C4%9Fra-y%C4%B1ld%C4%B1z-3970851b9/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/CemBugraYildiz" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://cembugra.itch.io" target="_blank" rel="noopener">itch.io</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>CEM BUĞRA YILDIZ · KORTRIJK, BELGIUM</span>
+    <span>LEVEL DESIGN · GAME DEVELOPMENT</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Filter the shipped titles by discipline.
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('#grid .card');
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var want = chip.getAttribute('data-filter');
+      chips.forEach(function (c) {
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute('data-tags') || '').split(' ');
+        var show = want === 'all' || tags.indexOf(want) !== -1;
+        card.classList.toggle('is-hidden', !show);
+      });
+    });
+  });
+
+  // Copy email / phone, with a select-the-text fallback.
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      if (!el) return;
+      var done = function () {
+        var was = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('ok');
+        setTimeout(function () { btn.textContent = was; btn.classList.remove('ok'); }, 1600);
+      };
+      var fallback = function () {
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        btn.textContent = 'Selected';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      };
+      try {
+        navigator.clipboard.writeText(el.textContent.trim()).then(done, fallback);
+      } catch (e) {
+        fallback();
+      }
+    });
+  });
+})();
+</script>
