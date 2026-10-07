@@ -133,10 +133,19 @@ h1{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   border-top:1px solid var(--line);
 }
-.stat{padding:18px 18px 18px 0;border-right:1px solid var(--line)}
+.stat{
+  padding:20px 20px 20px 22px;border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:7px;
+}
+.stat:first-child{padding-left:0}
 .stat:last-child{border-right:0}
-.stat .n{font-family:var(--font-display);font-weight:700;font-size:1.9rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;display:block}
-.stat .l{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.stat .n{
+  font-family:var(--font-display);font-weight:700;font-size:1.85rem;
+  line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  display:flex;align-items:flex-end;min-height:1.85rem;
+}
+.stat .n.word{font-size:1.4rem}
+.stat .l{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);line-height:1.4}
 
 /* ---------- sections ---------- */
 section{padding-block:58px;border-bottom:1px solid var(--line)}
@@ -157,8 +166,48 @@ section{padding-block:58px;border-bottom:1px solid var(--line)}
 
 /* ---------- title cards ---------- */
 .titles{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.card{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:11px;min-width:0}
+.card{background:var(--surface);display:flex;flex-direction:column;min-width:0}
 .card.is-hidden{display:none}
+.card-body{padding:22px;display:flex;flex-direction:column;gap:11px;flex:1}
+
+/* gameplay clip — thumbnail until hovered or tapped, then a muted loop */
+.media{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  background-color:var(--surface-2);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px;
+  border-bottom:1px solid var(--line);
+}
+.media .thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.media .thumb.is-failed{display:none}
+.media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
+.media-btn{
+  position:absolute;inset:0;width:100%;height:100%;z-index:3;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;border:0;cursor:pointer;
+}
+.media.is-live .media-btn{display:none}
+.media-btn .play{
+  width:46px;height:46px;border-radius:50%;
+  background:color-mix(in srgb,var(--bg) 70%,transparent);
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.media-btn:hover .play,.media-btn:focus-visible .play{background:var(--accent);border-color:var(--accent);transform:scale(1.06)}
+.media-btn .play::after{
+  content:"";width:0;height:0;margin-left:3px;
+  border-left:12px solid var(--fg);
+  border-top:8px solid transparent;border-bottom:8px solid transparent;
+}
+.media-btn:hover .play::after,.media-btn:focus-visible .play::after{border-left-color:var(--on-accent)}
+.watch{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;
+  color:var(--accent);text-decoration:none;align-self:flex-start;
+  border-bottom:1px solid transparent;
+}
+.watch:hover{border-bottom-color:var(--accent)}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .card h3{font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
 .card .genre{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-top:5px}
@@ -271,7 +320,7 @@ footer{padding-block:26px 40px}
     <div class="stats">
       <div class="stat"><span class="n">7</span><span class="l">Released titles</span></div>
       <div class="stat"><span class="n">3+</span><span class="l">Years in studio</span></div>
-      <div class="stat"><span class="n">Unity</span><span class="l">+ Unreal Engine 5</span></div>
+      <div class="stat"><span class="n word">Unity</span><span class="l">+ Unreal Engine 5</span></div>
       <div class="stat"><span class="n">4</span><span class="l">Languages spoken</span></div>
     </div>
   </div>
@@ -295,66 +344,110 @@ footer{padding-block:26px 40px}
     <div class="titles" id="grid">
 
       <article class="card" data-tags="level art">
-        <div class="card-top">
-          <div><h3>Goal Master</h3><div class="genre">Sports / Casual</div></div>
-          <span class="plat">Android · iOS</span>
+        <div class="media" data-yt="RRbaoextvzc">
+          <img class="thumb" src="https://i.ytimg.com/vi/RRbaoextvzc/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Goal Master gameplay"><span class="play"></span></button>
         </div>
-        <p>Designed 10+ progressive levels where the player tries to score as a footballer. Built obstacles that make scoring steadily harder, and set camera angles and backgrounds to establish each level's ambience.</p>
-        <div class="tags"><span class="tag">Level design</span><span class="tag">Obstacles</span><span class="tag">Framing</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Goal Master</h3><div class="genre">Sports / Casual</div></div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p>Designed 10+ progressive levels where the player tries to score as a footballer. Built obstacles that make scoring steadily harder, and set camera angles and backgrounds to establish each level's ambience.</p>
+          <a class="watch" href="https://youtu.be/RRbaoextvzc" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Level design</span><span class="tag">Obstacles</span><span class="tag">Framing</span></div>
+        </div>
       </article>
 
       <article class="card" data-tags="level enemy art">
-        <div class="card-top">
-          <div><h3>Color Invasion</h3><div class="genre">Casual / Puzzle</div></div>
-          <span class="plat">Android · iOS</span>
+        <div class="media" data-yt="FBqO256Bu5w">
+          <img class="thumb" src="https://i.ytimg.com/vi/FBqO256Bu5w/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Color Invasion gameplay"><span class="play"></span></button>
         </div>
-        <p>Designed 5+ unique levels around painting the ground to clear a stage. Set enemy types and placements to control routing and difficulty, and created the in-level props that keep each layout readable.</p>
-        <div class="tags"><span class="tag">Level design</span><span class="tag">Enemy placement</span><span class="tag">Props</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Color Invasion</h3><div class="genre">Casual / Puzzle</div></div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p>Designed 5+ unique levels around painting the ground to clear a stage. Set enemy types and placements to control routing and difficulty, and created the in-level props that keep each layout readable.</p>
+          <a class="watch" href="https://youtu.be/FBqO256Bu5w" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Level design</span><span class="tag">Enemy placement</span><span class="tag">Props</span></div>
+        </div>
       </article>
 
       <article class="card" data-tags="level systems enemy art">
-        <div class="card-top">
-          <div><h3>Tower Defense Simulator</h3><div class="genre">Strategy</div></div>
-          <span class="plat">Android · iOS</span>
+        <div class="media" data-yt="MeSugsAXxDk">
+          <img class="thumb" src="https://i.ytimg.com/vi/MeSugsAXxDk/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Tower Defense Simulator gameplay"><span class="play"></span></button>
         </div>
-        <p>A tower defense with a controllable player on the field. Designed 3+ levels and 3+ tower types, built the environments the player navigates, and created and balanced the enemy waves across a run.</p>
-        <div class="tags"><span class="tag">Level design</span><span class="tag">Tower design</span><span class="tag">Wave balancing</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Tower Defense Simulator</h3><div class="genre">Strategy</div></div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p>A tower defense with a controllable player on the field. Designed 3+ levels and 3+ tower types, built the environments the player navigates, and created and balanced the enemy waves across a run.</p>
+          <a class="watch" href="https://youtu.be/MeSugsAXxDk" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Level design</span><span class="tag">Tower design</span><span class="tag">Wave balancing</span></div>
+        </div>
       </article>
 
       <article class="card" data-tags="systems">
-        <div class="card-top">
-          <div><h3>Deep Dive</h3><div class="genre">Exploration / Merge</div></div>
-          <span class="plat">Android · iOS</span>
+        <div class="media" data-yt="DkBR84_H1lg">
+          <img class="thumb" src="https://i.ytimg.com/vi/DkBR84_H1lg/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Deep Dive gameplay"><span class="play"></span></button>
         </div>
-        <p>Designed the player's submarine and its merge-based upgrade mechanics across 5+ tiers. Tuned progression so that growth in power stayed matched to the difficulty of deeper zones.</p>
-        <div class="tags"><span class="tag">Systems design</span><span class="tag">Upgrade economy</span><span class="tag">Progression</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Deep Dive</h3><div class="genre">Exploration / Merge</div></div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p>Designed the player's submarine and its merge-based upgrade mechanics across 5+ tiers. Tuned progression so that growth in power stayed matched to the difficulty of deeper zones.</p>
+          <a class="watch" href="https://youtu.be/DkBR84_H1lg" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Systems design</span><span class="tag">Upgrade economy</span><span class="tag">Progression</span></div>
+        </div>
       </article>
 
       <article class="card" data-tags="level systems art">
-        <div class="card-top">
-          <div><h3>Surf &amp; Shoot</h3><div class="genre">Action / Parkour</div></div>
-          <span class="plat">Android</span>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Surf &amp; Shoot</h3><div class="genre">Action / Parkour</div></div>
+            <span class="plat">Android</span>
+          </div>
+          <p>Designed hazard-filled parkour levels that combine high-speed movement with combat. Set up animation transitions to keep movement readable, and implemented the weapon acquisition mechanic that escalates player power.</p>
+          <div class="tags"><span class="tag">Level design</span><span class="tag">Animation</span><span class="tag">Weapon mechanic</span></div>
         </div>
-        <p>Designed hazard-filled parkour levels that combine high-speed movement with combat. Set up animation transitions to keep movement readable, and implemented the weapon acquisition mechanic that escalates player power.</p>
-        <div class="tags"><span class="tag">Level design</span><span class="tag">Animation</span><span class="tag">Weapon mechanic</span></div>
       </article>
 
       <article class="card" data-tags="level enemy">
-        <div class="card-top">
-          <div><h3>Castle Escape</h3><div class="genre">Stealth / Hide and Seek</div></div>
-          <span class="plat">Android</span>
+        <div class="media" data-yt="_VkfU6dRfOo">
+          <img class="thumb" src="https://i.ytimg.com/vi/_VkfU6dRfOo/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Castle Escape gameplay"><span class="play"></span></button>
         </div>
-        <p>Designed the castle layout and room-to-room progression gated by collectible keys. Built enemy patrol routes and pursuit behaviour so that tension comes from the layout rather than from jump scares.</p>
-        <div class="tags"><span class="tag">Level design</span><span class="tag">Patrol routes</span><span class="tag">Pacing</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Castle Escape</h3><div class="genre">Stealth / Hide and Seek</div></div>
+            <span class="plat">Android</span>
+          </div>
+          <p>Designed the castle layout and room-to-room progression gated by collectible keys. Built enemy patrol routes and pursuit behaviour so that tension comes from the layout rather than from jump scares.</p>
+          <a class="watch" href="https://youtu.be/_VkfU6dRfOo" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Level design</span><span class="tag">Patrol routes</span><span class="tag">Pacing</span></div>
+        </div>
       </article>
 
       <article class="card" data-tags="art">
-        <div class="card-top">
-          <div><h3>Dance Fever</h3><div class="genre">Rhythm / Clicker</div></div>
-          <span class="plat">Android · iOS</span>
+        <div class="media" data-yt="Z0olkvZNVis">
+          <img class="thumb" src="https://i.ytimg.com/vi/Z0olkvZNVis/hqdefault.jpg" alt="" loading="lazy">
+          <button class="media-btn" type="button" aria-label="Play Dance Fever gameplay"><span class="play"></span></button>
         </div>
-        <p>Arranged dancer choreography to match the game's click-driven rhythm loop, and set the environment ambience and music selection that carry the game feel.</p>
-        <div class="tags"><span class="tag">Choreography</span><span class="tag">Ambience</span><span class="tag">Audio</span></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div><h3>Dance Fever</h3><div class="genre">Rhythm / Clicker</div></div>
+            <span class="plat">Android · iOS</span>
+          </div>
+          <p>Arranged dancer choreography to match the game's click-driven rhythm loop, and set the environment ambience and music selection that carry the game feel.</p>
+          <a class="watch" href="https://youtu.be/Z0olkvZNVis" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
+          <div class="tags"><span class="tag">Choreography</span><span class="tag">Ambience</span><span class="tag">Audio</span></div>
+        </div>
       </article>
 
     </div>
@@ -570,6 +663,56 @@ footer{padding-block:26px 40px}
         fallback();
       }
     });
+  });
+
+  // Gameplay clips: a thumbnail at rest, a muted loop on hover (desktop) or tap.
+  var YT = 'autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1';
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  document.querySelectorAll('.media[data-yt]').forEach(function (box) {
+    var id = box.getAttribute('data-yt');
+    var thumb = box.querySelector('.thumb');
+    var btn = box.querySelector('.media-btn');
+    var timer = null;
+    var pinned = false;
+
+    // YouTube serves the thumbnail, so hide it wherever external images are blocked.
+    if (thumb) {
+      var failed = function () { thumb.classList.add('is-failed'); };
+      thumb.addEventListener('error', failed);
+      if (thumb.complete && thumb.naturalWidth === 0) failed();
+    }
+
+    function play() {
+      if (box.querySelector('iframe')) return;
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?' + YT + '&playlist=' + id;
+      frame.title = 'Gameplay clip';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      frame.setAttribute('allowfullscreen', '');
+      box.appendChild(frame);
+      box.classList.add('is-live');
+    }
+
+    function stop() {
+      var frame = box.querySelector('iframe');
+      if (frame) frame.remove();
+      box.classList.remove('is-live');
+    }
+
+    if (btn) {
+      btn.addEventListener('click', function () { pinned = true; play(); });
+    }
+
+    if (canHover) {
+      box.addEventListener('mouseenter', function () {
+        timer = setTimeout(play, 350);
+      });
+      box.addEventListener('mouseleave', function () {
+        clearTimeout(timer);
+        if (!pinned) stop();
+      });
+    }
   });
 })();
 </script>
