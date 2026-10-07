@@ -14,8 +14,9 @@
   --fg:#14171C;
   --muted:#5A6270;
   --line:#D3D8DF;
-  --accent:#E8481C;
-  --accent-soft:rgba(232,72,28,.10);
+  --accent:#0B6A4A;
+  --accent-soft:rgba(11,106,74,.10);
+  --on-accent:#FFFFFF;
 
   --font-display:'Archivo','Helvetica Neue',Arial,sans-serif;
   --font-body:'Spline Sans','Helvetica Neue',Arial,sans-serif;
@@ -31,8 +32,9 @@
     --fg:#E8EBEF;
     --muted:#98A2B0;
     --line:#272E38;
-    --accent:#FF6A3D;
-    --accent-soft:rgba(255,106,61,.14);
+    --accent:#3ECF93;
+    --accent-soft:rgba(62,207,147,.16);
+    --on-accent:#0E1115;
     color-scheme:dark;
   }
 }
@@ -43,8 +45,9 @@
   --fg:#E8EBEF;
   --muted:#98A2B0;
   --line:#272E38;
-  --accent:#FF6A3D;
-  --accent-soft:rgba(255,106,61,.14);
+  --accent:#3ECF93;
+  --accent-soft:rgba(62,207,147,.16);
+  --on-accent:#0E1115;
   color-scheme:dark;
 }
 
@@ -122,8 +125,8 @@ h1{
   transition:border-color .15s,color .15s,background .15s;
 }
 .btn:hover{border-color:var(--accent);color:var(--accent)}
-.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent);color:#fff;filter:brightness(1.08)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent);color:var(--on-accent);filter:brightness(1.08)}
 .btn svg{width:14px;height:14px;flex:none}
 
 .stats{
@@ -226,7 +229,7 @@ footer{padding-block:26px 40px}
 
 <nav class="nav">
   <div class="wrap nav-in">
-    <div class="nav-mark">CEM BUĞRA YILDIZ <b>/</b> LEVEL DESIGN</div>
+    <div class="nav-mark">CEM BUĞRA YILDIZ <b>/</b> GAME DEVELOPMENT</div>
     <div class="nav-links">
       <a href="#titles">Shipped titles</a>
       <a href="#experience">Experience</a>
@@ -242,7 +245,7 @@ footer{padding-block:26px 40px}
     <div class="avail"><span class="dot"></span> Open to internships · Feb – Jun 2027</div>
 
     <h1>Cem Buğra Yıldız</h1>
-    <div class="role">Level Designer &nbsp;/&nbsp; Game Developer &nbsp;/&nbsp; 3D Artist</div>
+    <div class="role">Game Developer &nbsp;/&nbsp; Level Designer &nbsp;/&nbsp; 3D Artist</div>
 
     <p class="lede">I design levels and the systems that pace them — layout and blockout, enemy placement, difficulty curves and upgrade economies. <strong>Three years at Funrado</strong>, a mobile studio, across seven released titles. Now studying Game Development at <strong>Howest DAE</strong> in Kortrijk, working in C++ and Unreal Engine 5.</p>
 
@@ -517,7 +520,7 @@ footer{padding-block:26px 40px}
 <footer>
   <div class="wrap foot">
     <span>CEM BUĞRA YILDIZ · KORTRIJK, BELGIUM</span>
-    <span>LEVEL DESIGN · GAME DEVELOPMENT</span>
+    <span>GAME DEVELOPMENT · LEVEL DESIGN</span>
   </div>
 </footer>
 
