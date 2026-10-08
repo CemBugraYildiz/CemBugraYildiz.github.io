@@ -43,7 +43,10 @@
     if (!v) return;
     var held = false; // the visitor paused it deliberately
 
-    v.addEventListener('error', function () { box.classList.add('no-clip'); });
+    // Each <source> reports its own failure, so only give up once none is left.
+    v.addEventListener('error', function () {
+      if (v.networkState === 3) box.classList.add('no-clip');
+    }, true);
     v.addEventListener('play', function () { box.classList.remove('is-paused'); });
     v.addEventListener('pause', function () { box.classList.add('is-paused'); });
 
