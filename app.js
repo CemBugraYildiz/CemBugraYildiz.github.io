@@ -47,11 +47,11 @@
     v.addEventListener('play', function () { box.classList.remove('is-paused'); });
     v.addEventListener('pause', function () { box.classList.add('is-paused'); });
 
-    // Portrait footage gets a taller frame, so mobile gameplay is not a thin strip.
+    // Fit the frame to the footage itself, so no letterbox bars show around it.
     v.addEventListener('loadedmetadata', function () {
-      if (v.videoWidth && v.videoHeight && v.videoWidth / v.videoHeight < 0.95) {
-        box.style.aspectRatio = '4 / 3';
-      }
+      if (!v.videoWidth || !v.videoHeight) return;
+      box.style.aspectRatio = v.videoWidth + ' / ' + v.videoHeight;
+      box.classList.toggle('portrait', v.videoWidth / v.videoHeight < 0.95);
     });
 
     function start() {
