@@ -35,39 +35,46 @@
     });
   });
 
-  // Gameplay clips: a thumbnail at rest, a muted loop on hover (desktop) or tap.
-  var YT = 'autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1';
-  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  // Gameplay clips: self-hosted, muted and looping, with no player chrome.
+  // They run while on screen, stop when scrolled away, and a click holds them.
+  document.querySelectorAll('.proj-media[data-clip]').forEach(function (box) {
+    var v = box.querySelector('video');
+    var btn = box.querySelector('.clip-ui');
+    if (!v) return;
+    var held = false; // the visitor paused it deliberately
 
-  document.querySelectorAll('.proj-media[data-yt]').forEach(function (box) {
-    var id = box.getAttribute('data-yt');
-    var thumb = box.querySelector('.thumb');
-    var btn = box.querySelector('.media-btn');
-    var timer = null, pinned = false;
+    v.addEventListener('error', function () { box.classList.add('no-clip'); });
+    v.addEventListener('play', function () { box.classList.remove('is-paused'); });
+    v.addEventListener('pause', function () { box.classList.add('is-paused'); });
 
-    if (thumb) {
-      var failed = function () { thumb.classList.add('is-failed'); };
-      thumb.addEventListener('error', failed);
-      if (thumb.complete && thumb.naturalWidth === 0) failed();
+    // Portrait footage gets a taller frame, so mobile gameplay is not a thin strip.
+    v.addEventListener('loadedmetadata', function () {
+      if (v.videoWidth && v.videoHeight && v.videoWidth / v.videoHeight < 0.95) {
+        box.style.aspectRatio = '4 / 3';
+      }
+    });
+
+    function start() {
+      if (held) return;
+      var r = v.play();
+      if (r && r.catch) r.catch(function () {});
     }
-    function play() {
-      if (box.querySelector('iframe')) return;
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?' + YT + '&playlist=' + id;
-      f.title = 'Gameplay clip';
-      f.allow = 'autoplay; encrypted-media; picture-in-picture';
-      f.setAttribute('allowfullscreen', '');
-      box.appendChild(f); box.classList.add('is-live');
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) start(); else v.pause();
+        });
+      }, { threshold: 0.25 }).observe(box);
+    } else {
+      start();
     }
-    function stop() {
-      var f = box.querySelector('iframe');
-      if (f) f.remove();
-      box.classList.remove('is-live');
-    }
-    if (btn) btn.addEventListener('click', function () { pinned = true; play(); });
-    if (canHover) {
-      box.addEventListener('mouseenter', function () { timer = setTimeout(play, 350); });
-      box.addEventListener('mouseleave', function () { clearTimeout(timer); if (!pinned) stop(); });
+
+    if (btn) {
+      btn.addEventListener('click', function () {
+        if (v.paused) { held = false; start(); }
+        else { held = true; v.pause(); }
+      });
     }
   });
 })();
