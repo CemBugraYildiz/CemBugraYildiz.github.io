@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
 
 <style>
-/* Layout: a plan-view document — left-aligned measure over a blockout grid,
-   mono labels marking each section, shipped titles as a filterable level set. */
+/* Layout: a plan-view document — project rows alternate text and media across a
+   blockout grid, so each category reads as its own run of levels. */
 :root{
   --bg:#ECEEF1;
   --surface:#FFFFFF;
@@ -22,7 +22,7 @@
   --font-body:'Spline Sans','Helvetica Neue',Arial,sans-serif;
   --font-mono:'Spline Sans Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  --wrap:1060px;
+  --wrap:1080px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -60,9 +60,8 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1}
 p{margin:0}
-ul{margin:0;padding:0;list-style:none}
 a{color:inherit}
 
 .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding-inline:20px}
@@ -75,7 +74,7 @@ a{color:inherit}
   border-bottom:1px solid var(--line);
 }
 .nav-in{display:flex;align-items:center;gap:20px;min-height:54px;flex-wrap:wrap}
-.nav-mark{font-family:var(--font-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg);font-weight:500;white-space:nowrap}
+.nav-mark{font-family:var(--font-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:500;white-space:nowrap}
 .nav-mark b{color:var(--accent);font-weight:500}
 .nav-links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
 .nav-links a{
@@ -104,17 +103,14 @@ a{color:inherit}
   padding:6px 12px;margin-bottom:26px;
 }
 .avail .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex:none}
-h1{
-  font-size:clamp(2.6rem,8.4vw,4.75rem);
-  font-weight:800;letter-spacing:-.025em;margin-bottom:14px;
-}
+h1{font-size:clamp(2.6rem,8.4vw,4.75rem);font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
 .role{
   font-family:var(--font-display);font-weight:600;
   font-size:clamp(1.05rem,3.1vw,1.45rem);letter-spacing:-.01em;
-  color:var(--accent);margin-bottom:20px;
+  color:var(--accent);margin-bottom:22px;
 }
-.lede{max-width:62ch;font-size:clamp(1rem,2.3vw,1.115rem);color:var(--muted);margin-bottom:30px}
-.lede strong{color:var(--fg);font-weight:500}
+.lede{max-width:62ch;font-size:clamp(1rem,2.3vw,1.1rem);color:var(--muted);margin-bottom:14px}
+.lede:last-of-type{margin-bottom:30px}
 
 .links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
 .btn{
@@ -129,14 +125,8 @@ h1{
 .btn-primary:hover{background:var(--accent);color:var(--on-accent);filter:brightness(1.08)}
 .btn svg{width:14px;height:14px;flex:none}
 
-.stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  border-top:1px solid var(--line);
-}
-.stat{
-  padding:20px 20px 20px 22px;border-right:1px solid var(--line);
-  display:flex;flex-direction:column;gap:7px;
-}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));border-top:1px solid var(--line)}
+.stat{padding:20px 20px 20px 22px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
 .stat:first-child{padding-left:0}
 .stat:last-child{border-right:0}
 .stat .n{
@@ -144,50 +134,74 @@ h1{
   line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
   display:flex;align-items:flex-end;min-height:1.85rem;
 }
-.stat .n.word{font-size:1.4rem}
 .stat .l{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);line-height:1.4}
 
 /* ---------- sections ---------- */
 section{padding-block:58px;border-bottom:1px solid var(--line)}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;flex-wrap:wrap}
-.sec-idx{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
-.sec-head h2{font-size:clamp(1.5rem,4.2vw,2.1rem);font-weight:700;letter-spacing:-.022em}
-.sec-note{font-size:14.5px;color:var(--muted);max-width:60ch;margin-top:-16px;margin-bottom:26px}
+.sec-head h2{font-size:clamp(1.55rem,4.4vw,2.15rem);font-weight:700;letter-spacing:-.022em;margin-bottom:10px}
+.sec-note{font-size:14.8px;color:var(--muted);max-width:66ch;margin-bottom:8px}
 
-/* ---------- filters ---------- */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.chip{
-  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.02em;
-  padding:7px 13px;border:1px solid var(--line);background:transparent;
-  color:var(--muted);cursor:pointer;transition:.15s;
+/* ---------- project rows ---------- */
+.proj{display:grid;gap:18px;padding-block:34px;border-top:1px solid var(--line)}
+.proj:first-of-type{border-top:0}
+.proj-media{order:-1}
+
+@media (min-width:780px){
+  .proj{grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+  .proj-media{order:0}
+  .proj--flip .proj-media{order:-1}
 }
-.chip:hover{color:var(--fg);border-color:var(--fg)}
-.chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 
-/* ---------- title cards ---------- */
-.titles{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.card{background:var(--surface);display:flex;flex-direction:column;min-width:0}
-.card.is-hidden{display:none}
-.card-body{padding:22px;display:flex;flex-direction:column;gap:11px;flex:1}
+.proj-text{display:flex;flex-direction:column;gap:11px;min-width:0}
+.proj-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.proj-text h3{font-size:1.32rem;font-weight:700;letter-spacing:-.018em}
+.plat{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--muted);border:1px solid var(--line);padding:3px 7px;white-space:nowrap;
+}
+.genre{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.proj-text p{font-size:15px;color:var(--muted);max-width:58ch}
 
-/* gameplay clip — thumbnail until hovered or tapped, then a muted loop */
-.media{
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.chip{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--line);padding:4px 8px;color:var(--muted);background:var(--surface-2);
+}
+.chip.engine{color:var(--accent);background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 32%,transparent)}
+.chip.group{color:var(--fg);background:transparent}
+
+.proj-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:3px}
+.plink{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;
+  color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
+}
+.plink:hover{border-bottom-color:var(--accent)}
+.pending{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:var(--muted);opacity:.8}
+
+/* ---------- media box ---------- */
+.proj-media{
   position:relative;aspect-ratio:16/9;overflow:hidden;
+  border:1px solid var(--line);
   background-color:var(--surface-2);
   background-image:linear-gradient(var(--line) 1px,transparent 1px),
                    linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:26px 26px;
-  border-bottom:1px solid var(--line);
+  max-width:100%;
 }
-.media .thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.media .thumb.is-failed{display:none}
-.media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
+.proj-media .thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.proj-media .thumb.is-failed{display:none}
+.proj-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
+.ph{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);opacity:.45;
+}
 .media-btn{
   position:absolute;inset:0;width:100%;height:100%;z-index:3;padding:0;
   display:flex;align-items:center;justify-content:center;
   background:transparent;border:0;cursor:pointer;
 }
-.media.is-live .media-btn{display:none}
+.proj-media.is-live .media-btn{display:none}
 .media-btn .play{
   width:46px;height:46px;border-radius:50%;
   background:color-mix(in srgb,var(--bg) 70%,transparent);
@@ -202,58 +216,12 @@ section{padding-block:58px;border-bottom:1px solid var(--line)}
   border-top:8px solid transparent;border-bottom:8px solid transparent;
 }
 .media-btn:hover .play::after,.media-btn:focus-visible .play::after{border-left-color:var(--on-accent)}
-.watch{
-  font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;
-  color:var(--accent);text-decoration:none;align-self:flex-start;
-  border-bottom:1px solid transparent;
-}
-.watch:hover{border-bottom-color:var(--accent)}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.card h3{font-size:1.16rem;font-weight:700;letter-spacing:-.015em}
-.card .genre{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-top:5px}
-.plat{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:3px 7px;white-space:nowrap;flex:none}
-.card p{font-size:14.6px;color:var(--muted)}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
-.tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:3px 7px}
-
-/* ---------- experience ---------- */
-.job{border-left:2px solid var(--line);padding-left:22px;padding-bottom:34px;position:relative}
-.job:last-child{padding-bottom:0}
-.job::before{content:"";position:absolute;left:-5px;top:7px;width:8px;height:8px;background:var(--accent);border-radius:50%}
-.job-co{font-family:var(--font-display);font-weight:700;font-size:1.22rem;letter-spacing:-.015em}
-.job-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--muted);margin-top:4px;margin-bottom:14px}
-.stint{margin-bottom:18px}
-.stint:last-child{margin-bottom:0}
-.stint-role{font-family:var(--font-display);font-weight:600;font-size:1rem}
-.stint-when{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:var(--muted);margin-bottom:8px}
-.bullets li{position:relative;padding-left:16px;font-size:14.8px;color:var(--muted);margin-bottom:5px;max-width:68ch}
-.bullets li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--accent)}
-
-/* ---------- skills ---------- */
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.skill{background:var(--surface);padding:18px;min-width:0}
-.skill h4{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:9px}
-.skill p{font-size:14.6px;color:var(--muted)}
-
-/* ---------- education ---------- */
-.edu{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
-.edu-row{background:var(--surface);padding:20px;display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:start}
-.edu-row h3{font-size:1.08rem;font-weight:700;letter-spacing:-.012em}
-.edu-deg{font-size:14.6px;color:var(--muted);margin-top:4px}
-.edu-when{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.03em;color:var(--muted);text-align:right;white-space:nowrap}
-.edu-more{grid-column:1/-1;font-size:14.4px;color:var(--muted);border-top:1px solid var(--line);padding-top:11px;margin-top:3px;max-width:72ch}
-
-/* ---------- langs / extra ---------- */
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
-.lang-row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
-.lang-row:last-child{border-bottom:0}
-.lang-row span:last-child{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);text-align:right}
 
 /* ---------- contact ---------- */
 .contact{border-bottom:0}
 .contact-box{border:1px solid var(--line);background:var(--surface);padding:clamp(22px,5vw,38px)}
 .contact-box h2{font-size:clamp(1.5rem,4.4vw,2.2rem);font-weight:700;letter-spacing:-.022em;margin-bottom:12px}
-.contact-box p{color:var(--muted);max-width:56ch;margin-bottom:24px}
+.contact-box p{color:var(--muted);max-width:58ch;margin-bottom:24px}
 .cline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
 .cval{font-family:var(--font-mono);font-size:15px;word-break:break-all;min-width:0}
 .copy{
@@ -271,8 +239,6 @@ footer{padding-block:26px 40px}
 @media (max-width:560px){
   .stat{border-right:0;border-bottom:1px solid var(--line);padding:14px 0}
   .stat:last-child{border-bottom:0}
-  .edu-row{grid-template-columns:1fr}
-  .edu-when{text-align:left}
 }
 </style>
 
@@ -280,10 +246,10 @@ footer{padding-block:26px 40px}
   <div class="wrap nav-in">
     <div class="nav-mark">CEM BUĞRA YILDIZ <b>/</b> GAME DEVELOPMENT</div>
     <div class="nav-links">
-      <a href="#titles">Shipped titles</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
+      <a href="#professional">Professional</a>
+      <a href="#personal">Personal</a>
+      <a href="#jams">Game jams</a>
+      <a href="#school">School</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -296,7 +262,8 @@ footer{padding-block:26px 40px}
     <h1>Cem Buğra Yıldız</h1>
     <div class="role">Game Developer &nbsp;/&nbsp; Level Designer &nbsp;/&nbsp; 3D Artist</div>
 
-    <p class="lede">I design levels and the systems that pace them — layout and blockout, enemy placement, difficulty curves and upgrade economies. <strong>Three years at Funrado</strong>, a mobile studio, across seven released titles. Now studying Game Development at <strong>Howest DAE</strong> in Kortrijk, working in C++ and Unreal Engine 5.</p>
+    <p class="lede">I design levels and the systems that pace them — layout and blockout, enemy placement, difficulty curves and upgrade economies. 3 years at Funrado, a mobile studio, across seven released titles. Now studying Game Development at Howest DAE in Kortrijk, working in C++ and Unreal Engine 5.</p>
+    <p class="lede">Outside studio work I build personal and game jam projects, publish them at cembugra.itch.io, and make videos about game development on YouTube. Based in Kortrijk and eligible to work on-site in Belgium.</p>
 
     <div class="links">
       <a class="btn btn-primary" href="#contact">
@@ -319,8 +286,8 @@ footer{padding-block:26px 40px}
 
     <div class="stats">
       <div class="stat"><span class="n">7</span><span class="l">Released titles</span></div>
+      <div class="stat"><span class="n">18</span><span class="l">Projects built</span></div>
       <div class="stat"><span class="n">3+</span><span class="l">Years in studio</span></div>
-      <div class="stat"><span class="n word">Unity</span><span class="l">+ Unreal Engine 5</span></div>
       <div class="stat"><span class="n">4</span><span class="l">Languages spoken</span></div>
     </div>
   </div>
@@ -328,262 +295,262 @@ footer{padding-block:26px 40px}
 
 <main>
 
-<section id="titles">
+<!-- ============ PROFESSIONAL ============ -->
+<section id="professional">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-idx">01</span><h2>Shipped titles</h2></div>
-    <p class="sec-note">Seven mobile titles released at Funrado on Google Play and the App Store, played by thousands of players. Filter by discipline to see the work that matters to you.</p>
-
-    <div class="filters" role="group" aria-label="Filter titles by discipline">
-      <button class="chip" data-filter="all" aria-pressed="true">All titles</button>
-      <button class="chip" data-filter="level" aria-pressed="false">Level design</button>
-      <button class="chip" data-filter="systems" aria-pressed="false">Systems &amp; balance</button>
-      <button class="chip" data-filter="enemy" aria-pressed="false">Enemy &amp; AI</button>
-      <button class="chip" data-filter="art" aria-pressed="false">Art &amp; animation</button>
+    <div class="sec-head">
+      <h2>Professional projects</h2>
+      <p class="sec-note">Seven mobile titles released at Funrado on Google Play and the App Store, played by thousands of players. Built in Unity, with Fork for version control.</p>
     </div>
 
-    <div class="titles" id="grid">
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Goal Master</h3><span class="plat">Android · iOS</span></div>
+        <div class="genre">Sports / Casual</div>
+        <p>Designed 10+ progressive levels where the player tries to score as a footballer. Built obstacles that make scoring steadily harder, and set camera angles and backgrounds to establish each level's ambience.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Level design</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/RRbaoextvzc" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="RRbaoextvzc">
+        <img class="thumb" src="https://i.ytimg.com/vi/RRbaoextvzc/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Goal Master gameplay"><span class="play"></span></button>
+      </div>
+    </article>
 
-      <article class="card" data-tags="level art">
-        <div class="media" data-yt="RRbaoextvzc">
-          <img class="thumb" src="https://i.ytimg.com/vi/RRbaoextvzc/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Goal Master gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Goal Master</h3><div class="genre">Sports / Casual</div></div>
-            <span class="plat">Android · iOS</span>
-          </div>
-          <p>Designed 10+ progressive levels where the player tries to score as a footballer. Built obstacles that make scoring steadily harder, and set camera angles and backgrounds to establish each level's ambience.</p>
-          <a class="watch" href="https://youtu.be/RRbaoextvzc" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Level design</span><span class="tag">Obstacles</span><span class="tag">Framing</span></div>
-        </div>
-      </article>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Color Invasion</h3><span class="plat">Android · iOS</span></div>
+        <div class="genre">Casual / Puzzle</div>
+        <p>Designed 5+ unique levels around painting the ground to clear a stage. Set enemy types and placements to control routing and difficulty, and created the in-level props that keep each layout readable.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Enemy placement</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/FBqO256Bu5w" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="FBqO256Bu5w">
+        <img class="thumb" src="https://i.ytimg.com/vi/FBqO256Bu5w/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Color Invasion gameplay"><span class="play"></span></button>
+      </div>
+    </article>
 
-      <article class="card" data-tags="level enemy art">
-        <div class="media" data-yt="FBqO256Bu5w">
-          <img class="thumb" src="https://i.ytimg.com/vi/FBqO256Bu5w/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Color Invasion gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Color Invasion</h3><div class="genre">Casual / Puzzle</div></div>
-            <span class="plat">Android · iOS</span>
-          </div>
-          <p>Designed 5+ unique levels around painting the ground to clear a stage. Set enemy types and placements to control routing and difficulty, and created the in-level props that keep each layout readable.</p>
-          <a class="watch" href="https://youtu.be/FBqO256Bu5w" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Level design</span><span class="tag">Enemy placement</span><span class="tag">Props</span></div>
-        </div>
-      </article>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Tower Defense Simulator</h3><span class="plat">Android · iOS</span></div>
+        <div class="genre">Strategy</div>
+        <p>A tower defense with a controllable player on the field. Designed 3+ levels and 3+ tower types, built the environments the player navigates, and created and balanced the enemy waves across a run.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Wave balancing</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/MeSugsAXxDk" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="MeSugsAXxDk">
+        <img class="thumb" src="https://i.ytimg.com/vi/MeSugsAXxDk/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Tower Defense Simulator gameplay"><span class="play"></span></button>
+      </div>
+    </article>
 
-      <article class="card" data-tags="level systems enemy art">
-        <div class="media" data-yt="MeSugsAXxDk">
-          <img class="thumb" src="https://i.ytimg.com/vi/MeSugsAXxDk/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Tower Defense Simulator gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Tower Defense Simulator</h3><div class="genre">Strategy</div></div>
-            <span class="plat">Android · iOS</span>
-          </div>
-          <p>A tower defense with a controllable player on the field. Designed 3+ levels and 3+ tower types, built the environments the player navigates, and created and balanced the enemy waves across a run.</p>
-          <a class="watch" href="https://youtu.be/MeSugsAXxDk" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Level design</span><span class="tag">Tower design</span><span class="tag">Wave balancing</span></div>
-        </div>
-      </article>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Deep Dive</h3><span class="plat">Android · iOS</span></div>
+        <div class="genre">Exploration / Merge</div>
+        <p>Designed the player's submarine and its merge-based upgrade mechanics across 5+ tiers. Tuned progression so that growth in power stayed matched to the difficulty of deeper zones.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Upgrade economy</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/DkBR84_H1lg" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="DkBR84_H1lg">
+        <img class="thumb" src="https://i.ytimg.com/vi/DkBR84_H1lg/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Deep Dive gameplay"><span class="play"></span></button>
+      </div>
+    </article>
 
-      <article class="card" data-tags="systems">
-        <div class="media" data-yt="DkBR84_H1lg">
-          <img class="thumb" src="https://i.ytimg.com/vi/DkBR84_H1lg/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Deep Dive gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Deep Dive</h3><div class="genre">Exploration / Merge</div></div>
-            <span class="plat">Android · iOS</span>
-          </div>
-          <p>Designed the player's submarine and its merge-based upgrade mechanics across 5+ tiers. Tuned progression so that growth in power stayed matched to the difficulty of deeper zones.</p>
-          <a class="watch" href="https://youtu.be/DkBR84_H1lg" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Systems design</span><span class="tag">Upgrade economy</span><span class="tag">Progression</span></div>
-        </div>
-      </article>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Surf &amp; Shoot</h3><span class="plat">Android</span></div>
+        <div class="genre">Action / Parkour</div>
+        <p>Designed hazard-filled parkour levels that combine high-speed movement with combat. Set up animation transitions to keep movement readable, and implemented the weapon acquisition mechanic that escalates player power.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Animation</span></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
 
-      <article class="card" data-tags="level systems art">
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Surf &amp; Shoot</h3><div class="genre">Action / Parkour</div></div>
-            <span class="plat">Android</span>
-          </div>
-          <p>Designed hazard-filled parkour levels that combine high-speed movement with combat. Set up animation transitions to keep movement readable, and implemented the weapon acquisition mechanic that escalates player power.</p>
-          <div class="tags"><span class="tag">Level design</span><span class="tag">Animation</span><span class="tag">Weapon mechanic</span></div>
-        </div>
-      </article>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Castle Escape</h3><span class="plat">Android</span></div>
+        <div class="genre">Stealth / Hide and Seek</div>
+        <p>Designed the castle layout and room-to-room progression gated by collectible keys. Built enemy patrol routes and pursuit behaviour so that tension comes from the layout rather than from jump scares.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Patrol routes</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/_VkfU6dRfOo" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="_VkfU6dRfOo">
+        <img class="thumb" src="https://i.ytimg.com/vi/_VkfU6dRfOo/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Castle Escape gameplay"><span class="play"></span></button>
+      </div>
+    </article>
 
-      <article class="card" data-tags="level enemy">
-        <div class="media" data-yt="_VkfU6dRfOo">
-          <img class="thumb" src="https://i.ytimg.com/vi/_VkfU6dRfOo/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Castle Escape gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Castle Escape</h3><div class="genre">Stealth / Hide and Seek</div></div>
-            <span class="plat">Android</span>
-          </div>
-          <p>Designed the castle layout and room-to-room progression gated by collectible keys. Built enemy patrol routes and pursuit behaviour so that tension comes from the layout rather than from jump scares.</p>
-          <a class="watch" href="https://youtu.be/_VkfU6dRfOo" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Level design</span><span class="tag">Patrol routes</span><span class="tag">Pacing</span></div>
-        </div>
-      </article>
-
-      <article class="card" data-tags="art">
-        <div class="media" data-yt="Z0olkvZNVis">
-          <img class="thumb" src="https://i.ytimg.com/vi/Z0olkvZNVis/hqdefault.jpg" alt="" loading="lazy">
-          <button class="media-btn" type="button" aria-label="Play Dance Fever gameplay"><span class="play"></span></button>
-        </div>
-        <div class="card-body">
-          <div class="card-top">
-            <div><h3>Dance Fever</h3><div class="genre">Rhythm / Clicker</div></div>
-            <span class="plat">Android · iOS</span>
-          </div>
-          <p>Arranged dancer choreography to match the game's click-driven rhythm loop, and set the environment ambience and music selection that carry the game feel.</p>
-          <a class="watch" href="https://youtu.be/Z0olkvZNVis" target="_blank" rel="noopener">Watch gameplay &#8599;</a>
-          <div class="tags"><span class="tag">Choreography</span><span class="tag">Ambience</span><span class="tag">Audio</span></div>
-        </div>
-      </article>
-
-    </div>
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Dance Fever</h3><span class="plat">Android · iOS</span></div>
+        <div class="genre">Rhythm / Clicker</div>
+        <p>Arranged dancer choreography to match the game's click-driven rhythm loop, and set the environment ambience and music selection that carry the game feel.</p>
+        <div class="meta"><span class="chip engine">Unity</span><span class="chip">Fork</span><span class="chip">Choreography</span></div>
+        <div class="proj-links"><a class="plink" href="https://youtu.be/Z0olkvZNVis" target="_blank" rel="noopener">Watch gameplay &#8599;</a></div>
+      </div>
+      <div class="proj-media" data-yt="Z0olkvZNVis">
+        <img class="thumb" src="https://i.ytimg.com/vi/Z0olkvZNVis/hqdefault.jpg" alt="" loading="lazy">
+        <button class="media-btn" type="button" aria-label="Play Dance Fever gameplay"><span class="play"></span></button>
+      </div>
+    </article>
   </div>
 </section>
 
-<section id="experience">
+<!-- ============ PERSONAL ============ -->
+<section id="personal">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-idx">02</span><h2>Experience</h2></div>
+    <div class="sec-head">
+      <h2>Personal projects</h2>
+      <p class="sec-note">Games I build on my own, end to end: design, programming and 3D art. Published at cembugra.itch.io, with GitHub for version control.</p>
+    </div>
 
-    <div class="job">
-      <div class="job-co">Funrado — Mobile Game Studio</div>
-      <div class="job-meta">July 2021 – September 2024 · 3 yrs 3 mos · Ankara, Turkey and Remote</div>
-
-      <div class="stint">
-        <div class="stint-role">Freelance Designer</div>
-        <div class="stint-when">September 2023 – September 2024 · Remote</div>
-        <ul class="bullets">
-          <li>Continued level design and gameplay mechanics work on live titles after relocating to Belgium.</li>
-          <li>Designed new levels, features and progression content for post-launch updates.</li>
-          <li>Iterated on existing levels and mechanics based on team feedback and player behaviour.</li>
-        </ul>
+    <article class="proj proj--flip">
+      <div class="proj-text">
+        <div class="proj-head"><h3>LaserBeamos</h3><span class="plat">PC</span></div>
+        <div class="genre">3D FPS / Platformer</div>
+        <p>A 3D FPS platformer where you chase the highest score by shooting down drones and working your way across platforms. Every 3D object and environment in the game was modelled in Blender.</p>
+        <div class="meta"><span class="chip engine">Unity 2021</span><span class="chip">GitHub</span><span class="chip">Blender</span></div>
+        <div class="proj-links"><a class="plink" href="https://cembugra.itch.io/laserbeamos" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
       </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
 
-      <div class="stint">
-        <div class="stint-role">3D Artist and Level Designer</div>
-        <div class="stint-when">January 2022 – August 2023 · Full-time</div>
-        <ul class="bullets">
-          <li>Designed and built levels for released titles: layout, enemy placement, prop dressing and difficulty progression.</li>
-          <li>Created 3D environments, props and level art in Blender, optimised for mobile performance.</li>
-          <li>Balanced enemy waves, encounter pacing and difficulty curves across multiple shipped games.</li>
-          <li>Worked alongside programmers and artists to take levels from rough layout to art-ready production.</li>
-        </ul>
+    <article class="proj proj--flip">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Journey of Astro-Guy</h3><span class="plat">PC</span></div>
+        <div class="genre">2D Platformer</div>
+        <p>A 2D platforming and exploration game. You defeat enemies by jumping on them and navigate platforms to find the keys that open doors; once the right doors are open, the next level unlocks. Three levels in total, with a menu to jump back to any you have finished. Built with tilemaps.</p>
+        <div class="meta"><span class="chip engine">Unity 2022</span><span class="chip">GitHub</span><span class="chip">Tilemaps</span></div>
+        <div class="proj-links"><a class="plink" href="https://cembugra.itch.io/journey-of-astro-guy" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
       </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
 
-      <div class="stint">
-        <div class="stint-role">Game Developer</div>
-        <div class="stint-when">July 2021 – January 2022 · Full-time, Ankara</div>
-        <ul class="bullets">
-          <li>Programmed gameplay mechanics in Unity and C# for mobile titles.</li>
-          <li>Implemented game systems and in-game UI together with the design team.</li>
-          <li>Prototyped mechanics and optimised performance for Android and iOS devices.</li>
-        </ul>
+    <article class="proj proj--flip">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Confliction</h3><span class="plat">PC</span></div>
+        <div class="genre">3D TPS</div>
+        <p>A 3D third-person shooter where you play a zombie soldier out for revenge against the people who killed you. You take down enemy AI on the way to the boss fight. The game features a weapon system, a navigation system and AI behaviour logic.</p>
+        <div class="meta"><span class="chip engine">Unity 2023</span><span class="chip">GitHub</span><span class="chip">Enemy AI</span></div>
+        <div class="proj-links"><span class="pending">itch.io page coming soon</span></div>
       </div>
-    </div>
-
-    <div class="job">
-      <div class="job-co">Solo Game Developer — Self-employed</div>
-      <div class="job-meta">September 2021 – Present · Personal and game jam projects</div>
-      <ul class="bullets">
-        <li>Develop personal and game jam projects independently in Unity: design, programming, 3D art and release.</li>
-        <li>Build small-scope prototypes under jam time constraints, practising rapid iteration and scope control.</li>
-        <li>Explore C++ and Unreal Engine 5 alongside Howest DAE coursework.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-co">Pixelorc — Web Content Writer</div>
-      <div class="job-meta">December 2023 – June 2025 · Remote</div>
-      <ul class="bullets">
-        <li>Wrote web content and copy covering the games industry and PC gaming.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-co">Engineering Internships</div>
-      <div class="job-meta">Omak Isitma Sistemleri San. Tic. A.S. · Jul – Aug 2022 &nbsp;|&nbsp; Pi Makina · Jul – Aug 2021</div>
-      <ul class="bullets">
-        <li>Industrial engineering internships covering process analysis and problem solving in a production environment.</li>
-      </ul>
-    </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
   </div>
 </section>
 
-<section id="skills">
+<!-- ============ GAME JAMS ============ -->
+<section id="jams">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-idx">03</span><h2>Skills</h2></div>
-    <div class="skills">
-      <div class="skill"><h4>Game engines</h4><p>Unity, Unreal Engine 5</p></div>
-      <div class="skill"><h4>Programming</h4><p>C#, C++</p></div>
-      <div class="skill"><h4>Level design</h4><p>Level layout, blockout and iteration, enemy placement, encounter pacing, difficulty balancing, progression systems, props and environment dressing</p></div>
-      <div class="skill"><h4>Game design</h4><p>Game mechanics, prototyping, game design documents, economy and upgrade balancing, UI implementation</p></div>
-      <div class="skill"><h4>Art and tools</h4><p>Blender, Adobe Photoshop, 3D modelling, animation transitions, mobile asset optimisation</p></div>
-      <div class="skill"><h4>Version control</h4><p>Git, GitHub, Perforce (P4V)</p></div>
-      <div class="skill"><h4>Backend and services</h4><p>PlayFab, Microsoft Azure</p></div>
-      <div class="skill"><h4>Workflow</h4><p>Agile, Jira, cross-discipline collaboration, iteration on feedback</p></div>
-      <div class="skill"><h4>Platforms</h4><p>Android, iOS, PC</p></div>
+    <div class="sec-head">
+      <h2>Game jam projects</h2>
+      <p class="sec-note">Games made as a developer in small teams under jam time limits — fast scoping, fast iteration. GitHub for version control throughout.</p>
     </div>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Ad Hominem</h3><span class="plat">PC</span></div>
+        <div class="genre">Local multiplayer / Party</div>
+        <p>You and three friends play the little brain cells inside someone's head, each with their own colour: red, blue, yellow and green. The job is to catch the right thoughts flying past, while dodging the bad ones.</p>
+        <div class="meta"><span class="chip engine">Unity 6</span><span class="chip">GitHub</span><span class="chip group">Team project</span></div>
+        <div class="proj-links"><a class="plink" href="https://uxioma.itch.io/ad-hominem" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Tony Pigeon's Street Skater</h3><span class="plat">PC</span></div>
+        <div class="genre">Arcade / Skating</div>
+        <p>We are professional bird skateboarders, clearing the obstacles in our path as stylishly and smoothly as we can manage.</p>
+        <div class="meta"><span class="chip engine">Unity 2024</span><span class="chip">GitHub</span><span class="chip group">Team project</span></div>
+        <div class="proj-links"><a class="plink" href="https://kayahx.itch.io/kikkerwertjes" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>New To Morrow</h3><span class="plat">PC</span></div>
+        <div class="genre">Micro-management</div>
+        <p>A micro-management game. The goal is to use robots to build the conditions a healthy colony needs, before the human group lands on the planet on day 11.</p>
+        <div class="meta"><span class="chip engine">Unity 2022</span><span class="chip">GitHub</span><span class="chip group">Team project</span></div>
+        <div class="proj-links"><a class="plink" href="https://adadadadadarts.itch.io/new-tomorrow" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
   </div>
 </section>
 
-<section id="education">
+<!-- ============ SCHOOL ============ -->
+<section id="school">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-idx">04</span><h2>Education</h2></div>
-    <div class="edu">
-      <div class="edu-row">
-        <div>
-          <h3>Howest University of Applied Sciences — DAE</h3>
-          <div class="edu-deg">BSc Game Development · Kortrijk, Belgium</div>
-        </div>
-        <div class="edu-when">Sep 2023 – Jun 2027<br>expected</div>
-        <div class="edu-more">Coursework: C++ programming, Unreal Engine 5, Unity multiplayer systems (Netcode for GameObjects), game architecture and design patterns, gameplay programming.</div>
-      </div>
-      <div class="edu-row">
-        <div>
-          <h3>Gazi University — Faculty of Engineering</h3>
-          <div class="edu-deg">BSc Industrial Engineering · Ankara, Turkey</div>
-        </div>
-        <div class="edu-when">Sep 2018 – Jul 2023<br>GPA 2.78 / 4.00</div>
-        <div class="edu-more">Focus on systems analysis, optimisation, process design and project management.</div>
-      </div>
+    <div class="sec-head">
+      <h2>School projects</h2>
+      <p class="sec-note">Coursework and group projects from the Game Development programme at Howest DAE in Kortrijk.</p>
     </div>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>BurgerTime</h3><span class="plat">PC</span></div>
+        <div class="genre">Arcade recreation</div>
+        <p>A faithful recreation of the 1982 arcade game BurgerTime, built on Minigin, a bare-bones engine with no gameplay systems of its own.</p>
+        <div class="meta"><span class="chip engine">C++</span><span class="chip">CMake</span><span class="chip">GitHub</span></div>
+        <div class="proj-links"><a class="plink" href="https://github.com/CemBugraYildiz/BurgerTimeGame" target="_blank" rel="noopener">View on GitHub &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Refraction Protocol</h3><span class="plat">PC</span></div>
+        <div class="genre">First-person puzzle</div>
+        <p>A puzzle game built around Portal-like mechanics: you work your way to the end by solving puzzles across a series of levels.</p>
+        <div class="meta"><span class="chip engine">Unreal Engine 5</span><span class="chip">GitHub</span></div>
+        <div class="proj-links"><a class="plink" href="https://github.com/CemBugraYildiz/Refraction-Protocol-Unreal-Project" target="_blank" rel="noopener">View on GitHub &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>No Share Holder</h3><span class="plat">PC</span></div>
+        <div class="genre">Bullet hell</div>
+        <p>A bullet hell across two levels, where you buy upgrades and switch weapons between fights and try to survive waves of different enemies.</p>
+        <div class="meta"><span class="chip engine">Unity 6</span><span class="chip">GitHub</span></div>
+        <div class="proj-links"><a class="plink" href="https://github.com/CemBugraYildiz/No-Share-Holder-Unity-project" target="_blank" rel="noopener">View on GitHub &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>Missie Cordial</h3><span class="plat">PC</span></div>
+        <div class="genre">First-person narrative</div>
+        <p>You explore a reconstructed part of Kortrijk and talk with the people who live there. Through those conversations and the choices you make, you pick up the language, culture and social customs of the city in a way that stays approachable.</p>
+        <div class="meta"><span class="chip engine">Unity 6</span><span class="chip">GitHub</span><span class="chip group">Group project</span></div>
+        <div class="proj-links"><a class="plink" href="https://majidyasari.itch.io/missie-cordial" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-text">
+        <div class="proj-head"><h3>GOATED</h3><span class="plat">PC</span></div>
+        <div class="genre">Local multiplayer</div>
+        <p>Challenge your rival in a chaotic showdown where only the fiercest head-butter rises to the top. Ram, clash and outmanoeuvre your opponent to steal their hats and stack your claim to glory. The goat with the biggest collection rules the herd.</p>
+        <div class="meta"><span class="chip engine">Unity 6</span><span class="chip">Perforce</span><span class="chip group">Group project</span></div>
+        <div class="proj-links"><a class="plink" href="https://darkbluesnowfox.itch.io/goated" target="_blank" rel="noopener">Play on itch.io &#8599;</a></div>
+      </div>
+      <div class="proj-media"><span class="ph">Image · Clip</span></div>
+    </article>
   </div>
 </section>
 
-<section id="more">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-idx">05</span><h2>Languages &amp; beyond</h2></div>
-    <div class="two">
-      <div>
-        <div class="lang-row"><span>Turkish</span><span>Native</span></div>
-        <div class="lang-row"><span>English</span><span>Professional working</span></div>
-        <div class="lang-row"><span>Dutch</span><span>Elementary</span></div>
-        <div class="lang-row"><span>German</span><span>Elementary</span></div>
-      </div>
-      <div>
-        <ul class="bullets">
-          <li>Game jam participant; personal projects published at cembugra.itch.io.</li>
-          <li>Video content creator on YouTube covering game development topics since December 2023.</li>
-          <li>Based in Kortrijk, Belgium; eligible to work on-site in Belgium.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- ============ CONTACT ============ -->
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="contact-box">
@@ -619,34 +586,15 @@ footer{padding-block:26px 40px}
 
 <script>
 (function () {
-  // Filter the shipped titles by discipline.
-  var chips = document.querySelectorAll('.chip');
-  var cards = document.querySelectorAll('#grid .card');
-
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      var want = chip.getAttribute('data-filter');
-      chips.forEach(function (c) {
-        c.setAttribute('aria-pressed', String(c === chip));
-      });
-      cards.forEach(function (card) {
-        var tags = (card.getAttribute('data-tags') || '').split(' ');
-        var show = want === 'all' || tags.indexOf(want) !== -1;
-        card.classList.toggle('is-hidden', !show);
-      });
-    });
-  });
-
   // Copy email / phone, with a select-the-text fallback.
   document.querySelectorAll('.copy').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var el = document.getElementById(btn.getAttribute('data-copy'));
       if (!el) return;
       var done = function () {
-        var was = btn.textContent;
         btn.textContent = 'Copied';
         btn.classList.add('ok');
-        setTimeout(function () { btn.textContent = was; btn.classList.remove('ok'); }, 1600);
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1600);
       };
       var fallback = function () {
         var r = document.createRange();
@@ -669,7 +617,7 @@ footer{padding-block:26px 40px}
   var YT = 'autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1';
   var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  document.querySelectorAll('.media[data-yt]').forEach(function (box) {
+  document.querySelectorAll('.proj-media[data-yt]').forEach(function (box) {
     var id = box.getAttribute('data-yt');
     var thumb = box.querySelector('.thumb');
     var btn = box.querySelector('.media-btn');
@@ -705,9 +653,7 @@ footer{padding-block:26px 40px}
     }
 
     if (canHover) {
-      box.addEventListener('mouseenter', function () {
-        timer = setTimeout(play, 350);
-      });
+      box.addEventListener('mouseenter', function () { timer = setTimeout(play, 350); });
       box.addEventListener('mouseleave', function () {
         clearTimeout(timer);
         if (!pinned) stop();
